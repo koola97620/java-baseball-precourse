@@ -4,6 +4,7 @@ import baseball.exception.BaseballGameFailureException;
 import baseball.exception.ErrorCode;
 import baseball.util.NumberUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,5 +49,25 @@ public class GameNumbers {
             set.add(number.getNumber());
         }
         return set;
+    }
+
+    public Results calculateResults(GameNumbers inputNumbers) {
+        List<Result> results = new ArrayList<>();
+        for (Number number : inputNumbers.numbers) {
+            boolean isContainNumber = isContainNumber(number);
+            boolean isSamePosition = isSamePosition(number);
+            results.add(Result.of(isContainNumber, isSamePosition));
+        }
+        return new Results(results);
+    }
+
+    public boolean isContainNumber(Number inputNumber) {
+        return numbers.contains(inputNumber);
+    }
+
+    public boolean isSamePosition(Number inputNumber) {
+        return numbers.stream()
+                .filter(number -> number.equals(inputNumber))
+                .anyMatch(number -> number.getPosition() == inputNumber.getPosition());
     }
 }

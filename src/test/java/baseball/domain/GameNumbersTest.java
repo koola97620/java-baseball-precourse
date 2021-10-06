@@ -2,9 +2,11 @@ package baseball.domain;
 
 import baseball.exception.BaseballGameFailureException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class GameNumbersTest {
@@ -25,6 +27,28 @@ class GameNumbersTest {
         assertThatThrownBy(() -> GameNumbers.of(numberString))
                 .isInstanceOf(BaseballGameFailureException.class)
                 .hasMessageContaining("숫자는 서로 다른 숫자여야 합니다.");
+    }
+
+    @DisplayName("gameNumbers 에 포함된 숫자 존재 여부 확인")
+    @Test
+    void containNumber() {
+        Number number = Number.of(5,0);
+        GameNumbers gameNumbers = GameNumbers.of("458");
+
+        boolean result = gameNumbers.isContainNumber(number);
+
+        assertThat(result).isTrue();
+    }
+
+    @DisplayName("gameNumbers 에 포함되고 위치가 동일한 숫자 존재 여부 확인")
+    @Test
+    void containNumberAndSamePosition() {
+        Number number = Number.of(5,0);
+        GameNumbers gameNumbers = GameNumbers.of("568");
+
+        boolean result = gameNumbers.isSamePosition(number);
+
+        assertThat(result).isTrue();
     }
 
 }

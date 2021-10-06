@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaseballGame {
@@ -12,7 +13,11 @@ public class BaseballGame {
     }
 
     public void start(GameNumbers numbers) {
-
-
+        matchResult(numbers);
     }
+
+    private void matchResult(GameNumbers inputNumbers) {
+        Results results = gameNumbers.calculateResults(inputNumbers);
+    }
+
 }
