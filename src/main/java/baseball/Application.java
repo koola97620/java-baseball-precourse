@@ -5,6 +5,7 @@ import baseball.domain.GameNumberGenerator;
 import baseball.domain.GameNumbers;
 import baseball.domain.Results;
 import baseball.exception.BaseballGameFailureException;
+import baseball.exception.ErrorCode;
 import baseball.util.NumberUtils;
 import baseball.view.InputView;
 import baseball.view.PrintView;
@@ -20,7 +21,7 @@ public class Application {
 
         while (!baseballGame.isEnd()) {
             startGame(inputView, printView, baseballGame);
-            continueOrStopGame(baseballGame, inputView);
+            continueOrStopGame(inputView, printView, baseballGame);
         }
     }
 
@@ -34,23 +35,38 @@ public class Application {
         }
     }
 
-    private static void continueOrStopGame(BaseballGame game, InputView inputView) {
+    private static void continueOrStopGame(InputView inputView, PrintView printView, BaseballGame game) {
         if (!game.isEnd()) {
             return;
         }
-        Integer commandNumber = inputCommandNumber(inputView);
+
+        Integer commandNumber = 0;
+        do {
+            commandNumber = inputCommandNumber(inputView, printView);
+        } while (!isCommandNumber(commandNumber));
+
         game.executeCommand(commandNumber);
     }
 
-    private static Integer inputCommandNumber(InputView inputView) {
-        Integer commandNumber = inputView.inputCommand();
-        while (!validCommandNumber(commandNumber)) {
-            commandNumber = inputView.inputCommand();
+    private static Integer inputCommandNumber(InputView inputView, PrintView printView) {
+        Integer commandNumber = 0;
+        try {
+            commandNumber = validCommandNumber(inputView.inputCommand());
+        } catch (BaseballGameFailureException e) {
+            printView.print(e.getMessage());
         }
         return commandNumber;
     }
 
-    private static boolean validCommandNumber(Integer commandNumber) {
+    private static int validCommandNumber(Integer commandNumber) {
+        if (!isCommandNumber(commandNumber)) {
+            throw new BaseballGameFailureException(ErrorCode.COMMAND_NUMBER_ERROR.getMessage());
+        }
+        return commandNumber;
+    }
+
+    private static boolean isCommandNumber(Integer commandNumber) {
         return commandNumber == NEW_GAME_COMMAND_NUMBER || commandNumber == END_GAME_COMMAND_NUMBER;
     }
+
 }
