@@ -9,7 +9,7 @@ public class ResultTest {
 
     @ParameterizedTest
     @CsvSource(value = {"true,true,STRIKE","true,false,BALL","false,false,NOTHING"})
-    void test(boolean isContainNumber, boolean isSamePosition, String expected) {
+    void create(boolean isContainNumber, boolean isSamePosition, String expected) {
         Result result = Result.of(isContainNumber, isSamePosition);
         assertThat(result).isEqualTo(Result.valueOf(expected));
     }
