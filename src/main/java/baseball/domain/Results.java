@@ -14,7 +14,6 @@ public class Results {
     private static final int MIN_COUNT = 0;
     private static final int MAX_COUNT = 3;
 
-
     private List<Result> results;
     private int strikeCount;
     private int ballCount;
@@ -40,7 +39,7 @@ public class Results {
 
     private void createStrikeMessage(StringJoiner stringJoiner) {
         if (strikeCount > MIN_COUNT) {
-            stringJoiner.add(Integer.toString(strikeCount) + STRIKE);
+            stringJoiner.add(strikeCount + STRIKE);
         }
 
         if (strikeCount == MAX_COUNT) {
@@ -50,10 +49,9 @@ public class Results {
 
     private void createBallMessage(StringJoiner stringJoiner) {
         if (ballCount > MIN_COUNT) {
-            stringJoiner.add(Integer.toString(ballCount) + BALL);
+            stringJoiner.add(ballCount + BALL);
         }
     }
-
 
     private void makeResultStatistics() {
         for (Result result : results) {
@@ -72,5 +70,9 @@ public class Results {
 
     public int getBallCount() {
         return ballCount;
+    }
+
+    public boolean isThreeStrike() {
+        return strikeCount == MAX_COUNT;
     }
 }

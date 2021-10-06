@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class GameNumbers {
     private static final int NUMBERS_LENGTH = 3;
+
     private final List<Number> numbers;
 
     private GameNumbers(List<Number> list) {
