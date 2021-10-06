@@ -12,12 +12,12 @@ public class BaseballGame {
         this.gameNumbers = numberGenerator.generate();
     }
 
-    public void start(GameNumbers numbers) {
-        matchResult(numbers);
+    public Results start(GameNumbers numbers) {
+        return matchResult(numbers);
     }
 
-    private void matchResult(GameNumbers inputNumbers) {
-        Results results = gameNumbers.calculateResults(inputNumbers);
+    private Results matchResult(GameNumbers inputNumbers) {
+        return gameNumbers.calculateResults(inputNumbers);
     }
 
 }
