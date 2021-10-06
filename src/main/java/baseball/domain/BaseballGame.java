@@ -1,8 +1,5 @@
 package baseball.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BaseballGame {
     private NumberGenerator numberGenerator;
     private GameNumbers gameNumbers;
@@ -13,10 +10,10 @@ public class BaseballGame {
     }
 
     public Results start(GameNumbers numbers) {
-        return matchResult(numbers);
+        return getGameResult(numbers);
     }
 
-    private Results matchResult(GameNumbers inputNumbers) {
+    private Results getGameResult(GameNumbers inputNumbers) {
         return gameNumbers.calculateResults(inputNumbers);
     }
 
