@@ -16,17 +16,19 @@ public class Application {
         BaseballGame baseballGame = new BaseballGame(new GameNumberGenerator());
 
         while(true) {
-            try {
-                GameNumbers numbers = GameNumbers.of(NumberUtils.toList(inputView.inputNumbers()));
-                Results results = baseballGame.start(numbers);
-
-                printView.print(results.createResultsMessage());
-
-            } catch (BaseballGameFailureException e) {
-                printView.print(e.getMessage());
-            }
-
+            startGame(inputView, printView, baseballGame);
         }
 
     }
+
+    private static void startGame(InputView inputView, PrintView printView, BaseballGame baseballGame) {
+        try {
+            GameNumbers numbers = GameNumbers.of(NumberUtils.toList(inputView.inputNumbers()));
+            Results results = baseballGame.start(numbers);
+            printView.print(results.createResultsMessage());
+        } catch(BaseballGameFailureException e) {
+            printView.print(e.getMessage());
+        }
+    }
+
 }
