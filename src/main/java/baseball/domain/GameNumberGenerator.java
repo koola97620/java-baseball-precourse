@@ -3,7 +3,7 @@ package baseball.domain;
 import baseball.util.NumberUtils;
 import nextstep.utils.Randoms;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class GameNumberGenerator implements NumberGenerator {
@@ -13,7 +13,7 @@ public class GameNumberGenerator implements NumberGenerator {
 
     @Override
     public GameNumbers generate() {
-        Set<Integer> set = new HashSet<>();
+        Set<Integer> set = new LinkedHashSet<>();
         while (set.size() < GAME_NUMBERS_SIZE) {
             set.add(Randoms.pickNumberInRange(MIN_NUMBER, MAX_NUMBER));
         }
